@@ -1,47 +1,42 @@
 package com.company;
-import java.io.*;
+import java.util.Scanner;
 
 public class Main {
 
-	public static void main(String[] args) {
-		int arr[] = {1, 6, 9, 4, 2};
-		System.out.println("Before Selection sort");
-		for (int i = 0; i < arr.length; i++) {
-			System.out.print(arr[i] + ",");
+    public static void main(String[] args) {
+        // write your code here
+        int arr[] = new int[5];
+        System.out.println("Enter the unsorted array");
+        Scanner sc = new Scanner(System.in);
+        for(int i = 0; i< arr.length;i++){
+            arr[i] = sc.nextInt();
+        }
+        System.out.println("Before Insertion sort");
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + ",");
 
-		}
-		System.out.println();
-		//int i ;
-		for (int i = 0; i < arr.length - 1; i++) {
-			int min = i;
-			//int flag = 0;
-			for (int j = i + 1; j < arr.length; j++) {
-				if (arr[j] < arr[min]) {
-					min = j;
-				}
-			}
-			if (min != i) {// saving one swap
+        }
 
-					swap(arr, i, min);
-				}
+        System.out.println("");
+        for (int j = 1; j < arr.length; j++) {
+            int key = arr[j];
+            int i = j - 1;
+            while (i >= 0 && arr[i] > key) {
+                arr[i + 1] = arr[i];
+                i = i - 1;
+            }
+            arr[i+ 1] = key;
+        }
+        System.out.println("After Insertion sort");
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + ",");
 
-			}
-		for(int i = 0 ; i< arr.length;i++){
-			System.out.print(arr[i]+",");
-		}
-
-		}
-
-		public static void swap( int arr[], int i, int j){
-			int temp;
-			temp = arr[i];
-			arr[i] = arr[j];
-			arr[j] = temp;
-		}
-	}
-
-// minimum no. of swaps even in worse case
-// T(n) , best, average, worst = o(n^2) i.e not adaptable
-//In place sorting algorithm
-//  not stable algorithm
-//  {2#,5,7,3,9,2*,1} -> {1,5,7,3,9,2*,2#} -> {1,2*,7,3,9,5,2#}
+        }
+    }
+}
+// No swaps only shifts
+// Best algorithm if input size is small
+// stable algorithm due to "arr[i] > key"
+// Best case t(n) = o(n), when input is sorted in increasing order, no shifts only comparison
+// worst and average case t(n) = o(n^2)
+// Adaptable and Inplace algo.
